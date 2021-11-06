@@ -26,7 +26,7 @@ export default class SignUp extends Component {
                             <TextField fullwidth id="email" label="Username" variant="outlined" margin="dense" size="small" helperText="You can use letters,numbers & periods" sx={{width: '100%'}}/>
                         </div>
                         <div className="current-email">
-                            <Button fullWidth className="email-button" size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Use my current email address instead</Button>
+                            <Button className="email-button" size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Use my current email address instead</Button>
                         </div>
                         <div className="password-field">
                             <TextField fullwidth id="password" label="Password" variant="outlined" margin="dense" type="password" size="small" sx={{ marginRight: '5px' }}/>

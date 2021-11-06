@@ -15,7 +15,9 @@ $roboto : 'Roboto', sans-serif;
     @include flexlayout('column');
     border-radius: 8px;
     border: 1px solid #dadce0;
-    margin: 10vw 30vw;   
+    margin: 10vw 30vw; 
+    color: #202124;
+    font-family: $roboto;  
 }
 .form{
     padding-left: 2vw;
@@ -78,9 +80,106 @@ $roboto : 'Roboto', sans-serif;
     margin-bottom: 1vh;
     font-size: 1.5rem; 
 }
-body{
-    color: #202124;
-    font-family: $roboto; 
+
+@media only screen and (max-width: 1200px) {
+    .main-container{
+        display: flex;
+        flex-direction: row;
+        margin: 10vh;
+    }    
+    .current-email{
+        width: 100%;
+    }
+    .image-container{
+        display: none;
+    }
+    .form{
+        margin-right: 5vw;
+    }
+    .form-conatiner{
+        width: 100%;
+    }
+    .form{
+        width: 100%;
+        padding-right: 2vw;
+    }
+    .name-field{
+        width: 100%;
+    }
+    .password-field{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .main-container{
+        display: flex;
+        flex-direction: row;
+        margin: 10vh;
+    }
+    
+    .current-email{
+        width: 100%;
+    }
+    .image-container{
+        display: none;
+    }
+    .form-conatiner{
+        width: 100%;
+    }
+    .form{
+        width: 100%;
+        padding-right: 2vw;
+    }
+    .name-field{
+        width: 100%;
+    }
+    .password-field{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 540px) {
+    .main-container{
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        border: none;
+    }
+    .name-field{
+        display: flex;
+        flex-direction: column;
+    }
+    .password-field{
+        display: flex;
+        flex-direction: column;
+    }
+    .current-email{
+        width: 100%;
+    }  
+    .image-container{
+        display: none;
+    }  
+}
+@media only screen and (max-width: 450px) {
+    .main-container{
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        border: none;
+    }
+    .name-field{
+        display: flex;
+        flex-direction: column;
+    }
+    .password-field{
+        display: flex;
+        flex-direction: column;
+    }
+    .current-email{
+        width: 100%;
+    }  
+    .image-container{
+        display: none;
+    }  
 }
 @media only screen and (max-width:360px) {
     .main-container{
@@ -100,35 +199,7 @@ body{
     .current-email{
         width: 100%;
     }
+    .image-container{
+        display: none;
+    }
 }
-@media only screen and (max-width: 450px) {
-    .main-container{
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        border: none;
-    }
-    .name-field{
-        display: flex;
-        flex-direction: column;
-    }
-    .password-field{
-        display: flex;
-        flex-direction: column;
-    }
-    .current-email{
-        width: 100%;
-    }    
-}
-
-/*@media only screen and (max-width: 800px) {
-    .main-container{
-        display: flex;
-        flex-direction: row;
-        margin: 10vh;
-    }
-    
-    .current-email{
-        width: 100%;
-    }
-}*/
