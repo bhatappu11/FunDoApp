@@ -38,7 +38,7 @@ export default class SignUp extends Component {
                             <Checkbox />Show Password
                         </div>
                         <div className="signin-button">
-                            <Button size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem', paddingRight:'10vw'}}>Sign in instead</Button>
+                            <Button size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem', marginRight:'8vw'}}>Sign in instead</Button>
                             <Button size="medium" variant="contained" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Next</Button>
                         </div>
                     </div>
