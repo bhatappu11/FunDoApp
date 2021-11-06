@@ -11,7 +11,7 @@ $roboto : 'Roboto', sans-serif;
     padding-bottom: 0.5vw;
 }
 
-.main-container{
+.signup-container{
     @include flexlayout('column');
     border-radius: 8px;
     border: 1px solid #dadce0;
@@ -82,7 +82,7 @@ $roboto : 'Roboto', sans-serif;
 }
 
 @media only screen and (max-width: 1200px) {
-    .main-container{
+    .signup-container{
         display: flex;
         flex-direction: row;
         margin: 10vh;
@@ -111,7 +111,7 @@ $roboto : 'Roboto', sans-serif;
     }
 }
 @media only screen and (max-width: 800px) {
-    .main-container{
+    .signup-container{
         display: flex;
         flex-direction: row;
         margin: 10vh;
@@ -138,7 +138,7 @@ $roboto : 'Roboto', sans-serif;
     }
 }
 @media only screen and (max-width: 540px) {
-    .main-container{
+    .signup-container{
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -160,7 +160,7 @@ $roboto : 'Roboto', sans-serif;
     }  
 }
 @media only screen and (max-width: 450px) {
-    .main-container{
+    .signup-container{
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -182,7 +182,7 @@ $roboto : 'Roboto', sans-serif;
     }  
 }
 @media only screen and (max-width:360px) {
-    .main-container{
+    .signup-container{
         display: flex;
         flex-direction: column;
         margin: 0;

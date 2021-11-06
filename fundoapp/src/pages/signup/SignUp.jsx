@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 export default class SignUp extends Component {
     render() {
         return (
-            <div className="main-container">
+            <div className="signup-container">
                 <div className="form-container">
                     <div className="logo">
                         <span style={{color:'blue'}}>F</span>
