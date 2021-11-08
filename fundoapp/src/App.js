@@ -7,10 +7,10 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      {/* <SignUp /> */}
+      <SignUp />
       {/* <SignIn /> */}
       {/* <Forgot /> */}
-      <Reset />
+      {/* <Reset /> */}
     </div>
   );
 }
