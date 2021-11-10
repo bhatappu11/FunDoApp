@@ -4,7 +4,8 @@ import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import UserService from '../../services/UserService';
-const userService = new UserService();
+import History from '../../history/History'
+const userService = new UserService();;
 
 export default class SignUp extends Component {
     constructor(props){
@@ -34,6 +35,9 @@ export default class SignUp extends Component {
         });
         return (isError = errors.fNameError || errors.lNameError || errors.emailError || errors.passwordError);
     };
+    handleClick = () => {
+        History.push('/')
+    }
 
     changeValue = (e) => {
         this.setState({
@@ -56,6 +60,7 @@ export default class SignUp extends Component {
             userService.SignUp("/user/userSignUp",data)
             .then(()=>{
                 console.log("successfully registered");
+                History.push('/dashboard')
             })
             .catch((err)=>{
                 console.log(err);
@@ -111,7 +116,9 @@ export default class SignUp extends Component {
                             <Checkbox />Show Password
                         </div>
                         <div className="signin-button">
-                            <Button size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem', marginRight:'8vw'}}>Sign in instead</Button>
+                            <Button size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem', marginRight:'8vw'}}
+                            onClick={this.handleClick}
+                            >Sign in instead</Button>
                             <Button size="medium" variant="contained" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}} onClick={this.next}>Next</Button>
                         </div>
                     </div>
