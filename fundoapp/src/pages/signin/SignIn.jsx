@@ -3,6 +3,7 @@ import './SignIn.scss';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import UserService from '../../services/UserService';
+import History from '../../history/History';
 const userService = new UserService();
 
 export default class SignIn extends Component {
@@ -14,6 +15,9 @@ export default class SignIn extends Component {
             emailError: false,
             passwordError: false,
         };
+    }
+    handleClick = () => {
+        History.push('/signup')
     }
     isValidated = () => {
         let isError = false;
@@ -33,6 +37,7 @@ export default class SignIn extends Component {
           [e.target.name]: e.target.value,
         });
       };
+     
 
     next = () => {
         var isValid = this.isValidated();
@@ -44,8 +49,11 @@ export default class SignIn extends Component {
                 "password":this.state.password,
             };
             userService.SignIn("/user/login",data)
-            .then(()=>{
+            .then((res)=>{
+                console.log(res);
                 console.log("Login successful");
+                localStorage.setItem('id',res.data.id);
+                History.push('/dashboard')
             })
             .catch((err)=>{
                 console.log(err);
@@ -73,7 +81,8 @@ export default class SignIn extends Component {
                         size="medium" sx={{width: '100%'}} />
                 </div>
                 <div className="forgot-email">
-                <Button className="email-button" size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Forgot email?</Button>
+                <Button className="email-button" size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}
+                onClick={()=>{History.push('/forgot')}}>Forgot email?</Button>
                 </div>
                 <div className="signin-password-field">
                     <TextField fullwidth id="password" name="password" label="Password" variant="outlined" margin="dense" type="password" 
@@ -87,7 +96,8 @@ export default class SignIn extends Component {
                     <Button size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Learn more</Button>
                 </div>
                 <div className="create-account-buttons">
-                    <Button className="create-button" size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Create account</Button>
+                    <Button className="create-button" size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}
+                    onClick={this.handleClick}>Create account</Button>
                     <Button size="medium" variant="contained" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem' ,float: 'right'}}onClick={this.next}>Next</Button>
                 </div>
                 </div>
