@@ -3,6 +3,7 @@ import './Forgot.scss';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import UserService from '../../services/UserService';
+import History from '../../history/History';
 const userService = new UserService();
 
 
@@ -42,7 +43,10 @@ export default class Forgot extends Component {
             };
             userService.Forgot("/user/reset",data)
             .then(()=>{
+                const auth = localStorage.getItem('id');
+                const url = "/reset-password/"
                 console.log("successfully found email");
+                History.push(`${url}${auth}`);
             })
             .catch((err)=>{
                 console.log(err);
