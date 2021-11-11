@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import UserService from '../../services/UserService';
-import History from '../../history/History'
+// import History from '../../history/History'
 const userService = new UserService();;
 
 export default class SignUp extends Component {
@@ -36,7 +36,8 @@ export default class SignUp extends Component {
         return (isError = errors.fNameError || errors.lNameError || errors.emailError || errors.passwordError);
     };
     handleClick = () => {
-        History.push('/')
+        //History.push('/')
+        this.props.history.push("/");
     }
 
     changeValue = (e) => {
@@ -60,7 +61,9 @@ export default class SignUp extends Component {
             userService.SignUp("/user/userSignUp",data)
             .then(()=>{
                 console.log("successfully registered");
-                History.push('/dashboard')
+                // History.push('/dashboard')
+                this.props.history.push("/");
+
             })
             .catch((err)=>{
                 console.log(err);
@@ -68,6 +71,7 @@ export default class SignUp extends Component {
         }
     };
     render() {
+        // redirec
         return (
             <div className="signup-container">
                 <div className="form-container">

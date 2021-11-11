@@ -3,7 +3,7 @@ import './SignIn.scss';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import UserService from '../../services/UserService';
-import History from '../../history/History';
+//import History from '../../history/History';
 const userService = new UserService();
 
 export default class SignIn extends Component {
@@ -17,7 +17,8 @@ export default class SignIn extends Component {
         };
     }
     handleClick = () => {
-        History.push('/signup')
+        //History.push('/signup')
+        this.props.history.push("/signup");
     }
     isValidated = () => {
         let isError = false;
@@ -53,7 +54,8 @@ export default class SignIn extends Component {
                 console.log(res);
                 console.log("Login successful");
                 localStorage.setItem('id',res.data.id);
-                History.push('/dashboard')
+                //History.push('/dashboard')
+                this.props.history.push("/dashboard");
             })
             .catch((err)=>{
                 console.log(err);
@@ -82,7 +84,7 @@ export default class SignIn extends Component {
                 </div>
                 <div className="forgot-email">
                 <Button className="email-button" size="small" sx={{textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}
-                onClick={()=>{History.push('/forgot')}}>Forgot email?</Button>
+                onClick={()=>{this.props.history.push("/forgot")}}>Forgot email?</Button>
                 </div>
                 <div className="signin-password-field">
                     <TextField fullwidth id="password" name="password" label="Password" variant="outlined" margin="dense" type="password" 

@@ -14,10 +14,10 @@ class UserService {
         return axiosService.postMethod(`${baseurl}${url}`,data);
     }
     Reset(url,data,config){
-        return axiosService.postMethodForReset(`${baseurl}${url}`,data,config);
+        return axiosService.postMethod(`${baseurl}${url}`,data,config);
     }
     addNotes(url,data,config){
-        return axiosService.postMethodForReset(`${baseurl}${url}`,data,config);
+        return axiosService.postMethod(`${baseurl}${url}`,data,config);
     }
     displayNotes(url,config){
         return axiosService.getMethod(`${baseurl}${url}`,config);

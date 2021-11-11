@@ -3,6 +3,9 @@ import './Reset.scss';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import UserService from '../../services/UserService';
+
+//import History from '../../history/History';
+
 const userService = new UserService();
 
 export default class Reset extends Component {
@@ -53,6 +56,8 @@ export default class Reset extends Component {
             userService.Reset("/user/reset-password",data,config)
             .then(()=>{
                 console.log("password reset successful");
+                //History.push('/');
+                this.props.history.push("/");
             })
             .catch((err)=>{
                 console.log(err);
