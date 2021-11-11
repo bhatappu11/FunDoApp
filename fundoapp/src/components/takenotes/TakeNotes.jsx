@@ -35,18 +35,21 @@ export default function TakeNotes(props) {
         userService.addNotes("/notes/addNotes",data,config)
         .then(()=>{
             console.log("Notes Added");
-            this.props.displayAfterAdd();
+            props.displayAfterAdd();
         })
         .catch((err)=>{
             console.log(err);
         });
         setChecked(false);
+        setTitle("");
+        setContent("");
     }
     const takenotes = (
         <Box sx={{display:'flex'}}>
             <InputBase
                 placeholder="Title"
                 sx={{flexGrow:'1'}}
+                value={title}
                 onChange={(e)=> setTitle(e.target.value)}
             />
             <IconButton><PushPinOutlinedIcon/></IconButton>
@@ -65,6 +68,7 @@ export default function TakeNotes(props) {
                         maxRows={30}
                         onFocus={open}
                         fullWidth
+                        value={content}
                         sx={{flexGrow:1, padding: '20px 0'}}
                         onChange={(e)=> setContent(e.target.value)}
                     />
