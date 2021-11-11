@@ -23,6 +23,9 @@ class UserService {
         return axiosService.getMethod(`${baseurl}${url}`,config);
     
     }
+    updateNotes(url,data,config){
+        return axiosService.postMethod(`${baseurl}${url}`,data,config);
+    }
 }
 
 export default UserService
