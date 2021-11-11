@@ -52,8 +52,8 @@ export default function Dashboard() {
         <div>
             <ThemeProvider theme={theme}>
             <Header />
-            <TakeNotes displayAfterAdd ={displayNote }/>
-            <Display data={notes}/> 
+            <TakeNotes displayAfterAdd = {displayNote}/>
+            <Display data={notes} displayAfterUpdate = {displayNote}/> 
             </ThemeProvider>
         </div>
     )
