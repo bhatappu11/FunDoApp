@@ -46,43 +46,12 @@ export default function Dashboard() {
     React.useEffect(()=>{
          displayNote();
     },[]);
-      let dataArray = [
-          {
-              "Title":"one",
-              "Content":"Hey there!!!"
-          },
-          {
-            "Title":"two",
-            "Content":"Hello world"
-          },
-          {
-            "Title":"three",
-            "Content":"Learning react and demonstrating array. It is a very long sentence."
-          },
-          {
-            "Title":"four",
-            "Content":"Random data everywhere"
-          },
-          {
-            "Title":"five",
-            "Content":"meeting at the central perk"
-          }]; 
     return (
         <div>
             <ThemeProvider theme={theme}>
             <Header />
             <TakeNotes />
-            <Box sx={{marginLeft: '15%', marginTop: '5%'}} >
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {notes.map((data)=>(
-                        <Grid item xs={6} sm={3} md={2} >
-                        <Item>
-                        <Display data={data}/>
-                        </Item>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box> 
+            <Display data={notes}/> 
             </ThemeProvider>
         </div>
     )
