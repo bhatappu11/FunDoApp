@@ -7,6 +7,8 @@ import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import MoreIcon from '../more/MoreIcon';
+import Palette from '../palette/Palette';
 
 
 export default function IconButtons() {
@@ -16,10 +18,10 @@ export default function IconButtons() {
             <Box sx={{display:'flex'}}>
             <IconButton><AddAlertOutlinedIcon/></IconButton>
             <IconButton><PersonAddAltOutlinedIcon/></IconButton>
-            <IconButton><PaletteOutlinedIcon/></IconButton>
+            <IconButton><Palette /></IconButton>
             <IconButton><ImageOutlinedIcon/></IconButton>
             <IconButton><ArchiveOutlinedIcon/></IconButton>
-            <IconButton><MoreVertOutlinedIcon/></IconButton>
+            <IconButton><MoreIcon/></IconButton>
             </Box> 
             
         </div>
