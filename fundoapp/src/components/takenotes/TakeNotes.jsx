@@ -35,7 +35,7 @@ export default function TakeNotes(props) {
         userService.addNotes("/notes/addNotes",data,config)
         .then(()=>{
             console.log("Notes Added");
-            window.location.reload(true);
+            this.props.displayAfterAdd();
         })
         .catch((err)=>{
             console.log(err);

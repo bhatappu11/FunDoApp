@@ -38,11 +38,13 @@ export default function Dashboard() {
             mode:'dark',
         }
       });
+
       const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
         textAlign: 'center',
         color: theme.palette.text.secondary,
       }));
+
     React.useEffect(()=>{
          displayNote();
     },[]);
@@ -50,7 +52,7 @@ export default function Dashboard() {
         <div>
             <ThemeProvider theme={theme}>
             <Header />
-            <TakeNotes />
+            <TakeNotes displayAfterAdd ={displayNote }/>
             <Display data={notes}/> 
             </ThemeProvider>
         </div>
