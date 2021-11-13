@@ -23,12 +23,16 @@ export default function Display(props) {
     const [title,setTitle] = React.useState("");
     const [content,setContent] = React.useState("");
     const [noteid,setId] = React.useState("");
+    const [color, setColor] = React.useState("#121212");
+    //const [archive, setArchive] = React.useState(false);
 
     const handleClickOpen = (note) => {
         setOpen(true);
         setTitle(note.title);
         setId(note.id);
         setContent(note.description);
+        setColor(note.color);
+        // setArchive(note.isArchive);
     };
     const updateNote = () => {
         let data = {
@@ -61,11 +65,6 @@ export default function Display(props) {
     const close = () => {
         setChecked(false);
     }
-    const bottom = (
-        <Box>
-            <IconButtons />
-        </Box>
-    )
     const pinbutton = (         
             <IconButton><PushPinOutlinedIcon/></IconButton>
     ); 
@@ -84,19 +83,21 @@ export default function Display(props) {
         <div>
             <Box sx={{marginLeft: '6%', marginTop: '5%', marginRight: '3%'}} >
                 <Grid container spacing={{ xs: 1, md: 3 }} columns={{ xs: 4, sm: 8, md: 10 }}>
-                    {props.data.map((note)=>(
+                    {props.data.filter(ele => ele.isArchived == false).map((note)=>(
                         <Grid item xs={6} sm={3} md={2} >
                         <Item>
                             <div className="note">
-                        <Box  sx={{display:'flex', flexDirection:'column'}}>                        
-                            <Paper  variant="outlined" sx={{border:'0.1px solid', borderRadius:'10px', padding: '0 5px', wordWrap: 'break-word'}} >
+                            <Box  sx={{display:'flex', flexDirection:'column'}}>                        
+                            <Paper  variant="outlined" sx={{border:'0.1px solid', borderRadius:'10px', padding: '0 5px', wordWrap: 'break-word', backgroundColor: note.color }} >
                         
-                            <Box sx={{fontSize:'16px', padding:'5px'}} onClick={()=>handleClickOpen(note)}>
+                            <Box sx={{fontSize:'16px', padding:'5px', fontWeight: 'bolder'}} onClick={()=>handleClickOpen(note)}>
                                  <div className="notes-title">{note.title}<div className="pin-icons">{pinbutton}</div></div>
                                  <div className="notes-content">{note.description}</div>
                             </Box>
                             <div className="icons">
-                                {bottom}
+                            <Box>
+                                <IconButtons mode="update" setColor={setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={note.id}/>
+                            </Box>
                             </div>
                             </Paper>
                         </Box>
@@ -108,7 +109,7 @@ export default function Display(props) {
             </Box> 
             <Dialog open={pop} onClose={()=>handleClose}>
             <Box sx={{display:'flex', flexDirection:'column' ,width: '100%', justifyContent:'space-between'}}>
-                <Paper sx={{padding:'5px 20px 5px 20px', borderRadius:'10px', border:'1px solid'}}>
+                <Paper sx={{padding:'5px 20px 5px 20px', borderRadius:'10px', border:'1px solid',backgroundColor: color }}>
                 <DialogContent>
                     <InputBase
                         defaultValue={title}
@@ -127,7 +128,7 @@ export default function Display(props) {
                     />
                 </DialogContent>
                     <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                        <IconButtons />
+                        <IconButtons mode="update" setColor={setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={noteid}/>
                         <Button onClick={handleClose} size="small" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Close</Button>
                     </Box>
                 </Paper>
