@@ -19,6 +19,7 @@ export default function TakeNotes(props) {
     const [checked, setChecked] = React.useState(false);
     const [title,setTitle] = React.useState("");
     const [content,setContent] = React.useState("");
+    const [color, setColor] = React.useState("#121212");
     const open = () => {
         setChecked(true);
     }
@@ -26,6 +27,7 @@ export default function TakeNotes(props) {
         let data = {
             title: title,
             description: content,
+            color: color,
         };
         let config = {
             headers: {
@@ -43,6 +45,7 @@ export default function TakeNotes(props) {
         setChecked(false);
         setTitle("");
         setContent("");
+        setColor("#121212");
     }
     const takenotes = (
         <Box sx={{display:'flex'}}>
@@ -58,7 +61,7 @@ export default function TakeNotes(props) {
     return (
         <div>
             <Box sx={{display:'flex', flexDirection:'column' ,width: '50%', marginLeft: '25%', justifyContent:'space-between'}}>
-                <Paper sx={{padding:'5px 20px 5px 20px', borderRadius:'10px', border:'1px solid'}}>
+                <Paper sx={{padding:'5px 20px 5px 20px', borderRadius:'10px', border:'1px solid',backgroundColor: color }}>
                     <Collapse in={checked}>{takenotes}</Collapse>
                     <Box sx={{display: 'flex'}}>
                     <InputBase
@@ -83,7 +86,7 @@ export default function TakeNotes(props) {
                     <Box >
                     <Collapse in={checked}>
                         <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                        <IconButtons />
+                        <IconButtons mode="create" setColor={setColor}/>
                         <Button onClick={close} size="small" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Close</Button>
                         </Box>
                     </Collapse>
