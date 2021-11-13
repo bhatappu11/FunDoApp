@@ -11,14 +11,16 @@ import MoreIcon from '../more/MoreIcon';
 import Palette from '../palette/Palette';
 
 
-export default function IconButtons() {
+export default function IconButtons(props) {
     
     return (
         <div>
             <Box sx={{display:'flex'}}>
             <IconButton><AddAlertOutlinedIcon/></IconButton>
             <IconButton><PersonAddAltOutlinedIcon/></IconButton>
-            <IconButton><Palette /></IconButton>
+            <IconButton>{props.mode=="create" ? <Palette mode="create" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={props.noteid}/> : <Palette mode="update" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={props.noteid} />}</IconButton>
+            {/* <IconButton><Palette /></IconButton> */}
+            {/* <IconButton><Palette mode="update" setColor={props.setColor} noteid={props.noteid} /></IconButton> */}
             <IconButton><ImageOutlinedIcon/></IconButton>
             <IconButton><ArchiveOutlinedIcon/></IconButton>
             <IconButton><MoreIcon/></IconButton>
