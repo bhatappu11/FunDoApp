@@ -5,10 +5,12 @@ import Fade from '@mui/material/Fade';
 import Paper from '@mui/material/Paper';
 import CircleIcon from '@mui/icons-material/Circle';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
-
+import UserService from '../../services/UserService';
 import IconButton from '@mui/material/IconButton';
 
-export default function Palette() {
+const userService = new UserService();
+
+export default function Palette(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [placement, setPlacement] = React.useState();
@@ -18,7 +20,30 @@ export default function Palette() {
     setOpen((prev) => placement !== newPlacement || !prev);
     setPlacement(newPlacement);
   };
+  const handleColor = (newColor) => {
+    props.setColor(newColor);
+    if (props.mode == "update") {
+      let data = {
+        noteIdList: [props.noteid],
+        color : newColor,
+    };
+    let config = {
+        headers: {
+            'Authorization': localStorage.getItem("id"),
+        }
+    }
+    userService.updateNotes("/notes/changesColorNotes",data,config)
+    .then(()=>{
+        console.log("Color changed successfully");
+        props.displayAfterUpdate();
+    })
+    .catch((err)=>{
+        console.log(err);
+    });
+    }
+  };
 
+  const colors = ['#121212','#632a2a','#ad7b23','#b3b346','#597d47','#378c6d','#498a8a','#324163','#503273','#82247c','#754834','#8a8988'];
   return (
     <Box >
       <Popper open={open} anchorEl={anchorEl}  placement={placement} transition
@@ -27,18 +52,9 @@ export default function Palette() {
           <Fade {...TransitionProps} timeout={350}>
             <Paper sx={{width: '100%',zIndex: 1500 }}>
               <Box display="grid" gridTemplateColumns="repeat(4,1fr)">
-                  <IconButton><CircleIcon fontSize="large" sx={{color:"#f3f3f3"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#f28b82"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#fbbc04"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#fff475"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#ccff90"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#a7ffeb"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#cbf0f8"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#aecbfa"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#d7aefb"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#fdcfe8"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#e6c9a8"}} /></IconButton>
-                  <IconButton><CircleIcon fontSize="large"sx={{color:"#e8eaed"}} /></IconButton>
+              {colors.map((color)=>(
+                <IconButton><CircleIcon onClick={()=>handleColor(color)} fontSize="large" sx={{color: color}} /></IconButton>
+              ))}
                 </Box>
             </Paper>
           </Fade>
