@@ -26,6 +26,12 @@ class UserService {
     updateNotes(url,data,config){
         return axiosService.postMethod(`${baseurl}${url}`,data,config);
     }
+    archiveNotes(url,data,config){
+        return axiosService.postMethod(`${baseurl}${url}`,data,config);
+    }
+    trashNotes(url,data,config){
+        return axiosService.postMethod(`${baseurl}${url}`,data,config);
+    }
 }
 
 export default UserService
