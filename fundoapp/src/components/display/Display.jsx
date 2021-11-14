@@ -24,15 +24,16 @@ export default function Display(props) {
     const [content,setContent] = React.useState("");
     const [noteid,setId] = React.useState("");
     const [color, setColor] = React.useState("#121212");
-    //const [archive, setArchive] = React.useState(false);
-
+    const [archive, setArchive] = React.useState(false);
+    const [deleted, setDelete] = React.useState(false);
     const handleClickOpen = (note) => {
         setOpen(true);
         setTitle(note.title);
         setId(note.id);
         setContent(note.description);
         setColor(note.color);
-        // setArchive(note.isArchive);
+        setArchive(note.isArchive);
+        setDelete(note.isDeleted);
     };
     const updateNote = () => {
         let data = {
@@ -56,7 +57,7 @@ export default function Display(props) {
         setOpen(false);
     }
     const handleClose = () => {
-        updateNote();
+        updateNote(); 
     };
     
     const open = () => {
@@ -73,7 +74,9 @@ export default function Display(props) {
             mode:'dark',
         }
       });
-
+//       React.useEffect(()=>{
+//         handleClose();
+//    },[archive]);
     const Item = styled(Paper)(({ theme }) => ({
         ...theme.typography.body2,
         textAlign: 'center',
@@ -81,9 +84,9 @@ export default function Display(props) {
       })); 
     return (
         <div>
-            <Box sx={{marginLeft: '6%', marginTop: '5%', marginRight: '3%'}} >
+            <Box sx={{marginLeft: '10%', marginTop: '5%', marginRight: '10%'}} >
                 <Grid container spacing={{ xs: 1, md: 3 }} columns={{ xs: 4, sm: 8, md: 10 }}>
-                    {props.data.filter(ele => ele.isArchived == false).map((note)=>(
+                    {props.data.filter(ele => ele.isArchived == false && ele.isDeleted == false).map((note)=>(
                         <Grid item xs={6} sm={3} md={2} >
                         <Item>
                             <div className="note">
@@ -96,7 +99,7 @@ export default function Display(props) {
                             </Box>
                             <div className="icons">
                             <Box>
-                                <IconButtons mode="update" setColor={setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={note.id}/>
+                                <IconButtons mode="update" setColor={setColor} setDelete={setDelete} handleClose={handleClose} setArchive={setArchive} displayAfterUpdate = {props.displayAfterUpdate} noteid={note.id}/>
                             </Box>
                             </div>
                             </Paper>
@@ -128,7 +131,7 @@ export default function Display(props) {
                     />
                 </DialogContent>
                     <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                        <IconButtons mode="update" setColor={setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={noteid}/>
+                        <IconButtons mode="update" setColor={setColor} setArchive={setArchive} setDelete={setDelete} handleClose={handleClose} displayAfterUpdate = {props.displayAfterUpdate} noteid={noteid}/>
                         <Button onClick={handleClose} size="small" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Close</Button>
                     </Box>
                 </Paper>
