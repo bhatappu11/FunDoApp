@@ -20,14 +20,21 @@ export default function TakeNotes(props) {
     const [title,setTitle] = React.useState("");
     const [content,setContent] = React.useState("");
     const [color, setColor] = React.useState("#121212");
+    const [archive, setArchive] = React.useState(false);
+    // const [deleted, setDelete] = React.useState(false);
+    const [callEffect, setCallEffect]  = React.useState(false);
+
     const open = () => {
         setChecked(true);
     }
-    const close = () => {
+    const addnotes = () => {
+        close();
         let data = {
             title: title,
             description: content,
             color: color,
+            isArchived: archive,
+            //isDeleted: deleted,
         };
         let config = {
             headers: {
@@ -42,11 +49,21 @@ export default function TakeNotes(props) {
         .catch((err)=>{
             console.log(err);
         });
-        setChecked(false);
+        
         setTitle("");
         setContent("");
         setColor("#121212");
+        setArchive(false);
+        // setDelete(false);
+        //setCallEffect(false);
     }
+    const close = () => {
+        setChecked(false);
+            
+    }
+     React.useEffect(()=>{
+         addnotes();
+    },[callEffect]);
     const takenotes = (
         <Box sx={{display:'flex'}}>
             <InputBase
@@ -60,7 +77,7 @@ export default function TakeNotes(props) {
     );
     return (
         <div>
-            <Box sx={{display:'flex', flexDirection:'column' ,width: '50%', marginLeft: '25%', justifyContent:'space-between'}}>
+            <Box className="takenote-box" sx={{display:'flex', flexDirection:'column' ,width: '50%', marginLeft: '25%', justifyContent:'space-between'}}>
                 <Paper sx={{padding:'5px 20px 5px 20px', borderRadius:'10px', border:'1px solid',backgroundColor: color }}>
                     <Collapse in={checked}>{takenotes}</Collapse>
                     <Box sx={{display: 'flex'}}>
@@ -86,8 +103,8 @@ export default function TakeNotes(props) {
                     <Box >
                     <Collapse in={checked}>
                         <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                        <IconButtons mode="create" setColor={setColor}/>
-                        <Button onClick={close} size="small" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Close</Button>
+                        <IconButtons mode="create" setColor={setColor} addNotes={addnotes} /*setDelete={setDelete}*/ setCallEffect={setCallEffect} callEffect={callEffect} setArchive={setArchive}/>
+                        <Button onClick={addnotes} size="small" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Close</Button>
                         </Box>
                     </Collapse>
                     </Box>
