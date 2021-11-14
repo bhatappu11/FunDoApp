@@ -11,22 +11,57 @@ import MenuList from '@mui/material/MenuList';
 import IconButton from '@mui/material/IconButton';
 
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import UserService from '../../services/UserService';
+
+const userService = new UserService();
 
 const options = ['Delete note', 'Add label', 'Add drawing','Make a copy','Show checkboxes','copy to Google Docs'];
 
-export default function SplitButton() {
+export default function MoreIcon(props) {
   const [open, setOpen] = React.useState(false);
+  
   const anchorRef = React.useRef(null);
   
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event) => {
+  const handleMenuClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
 
+    setOpen(false);
+  };
+  const handleMenuItemClick = (event, index) => {
+    if(index==0){
+      
+      if(props.mode=="create"){
+        props.setDelete(true);
+        props.setCallEffect(true);
+      }
+      if(props.mode == "update"){  
+        props.setDelete(true);          
+        let data = {
+            noteIdList: [props.noteid],
+            isDeleted: true,
+        };
+        let config = {
+            headers: {
+                'Authorization': localStorage.getItem("id"),
+            }
+        }
+        userService.trashNotes("/notes/trashNotes",data,config)
+        .then(()=>{
+            console.log("deleted successfully");
+            props.handleClose();
+            props.displayAfterUpdate();
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+      }
+    }
     setOpen(false);
   };
 
@@ -49,11 +84,13 @@ export default function SplitButton() {
             }}
           >
             <Paper>
-              <ClickAwayListener onClickAway={handleClose}>
+              <ClickAwayListener onClickAway={handleMenuClose}>
                 <MenuList id="split-button-menu">
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
+                      //selected={index === selectedIndex}
+                      onClick={(event) => handleMenuItemClick(event, index)}
                     >
                       {option}
                     </MenuItem>
