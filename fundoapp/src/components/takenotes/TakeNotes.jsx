@@ -93,10 +93,10 @@ export default function TakeNotes(props) {
                         onChange={(e)=> setContent(e.target.value)}
                     />
                     <Collapse in={!checked}>
-                        <Box sx={{display: 'flex'}}>
-                        <IconButton><CheckBoxOutlinedIcon /></IconButton>
-                        <IconButton><BrushOutlinedIcon /></IconButton>
-                        <IconButton><ImageOutlinedIcon /></IconButton> 
+                        <Box sx={{display: 'flex',marginTop: '10px'}}>
+                            <IconButton><CheckBoxOutlinedIcon /></IconButton>
+                            <IconButton><BrushOutlinedIcon /></IconButton>
+                            <IconButton><ImageOutlinedIcon /></IconButton> 
                         </Box>
                     </Collapse>
                     </Box>

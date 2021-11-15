@@ -66,14 +66,14 @@ export default function MoreIcon(props) {
   };
 
   return (
-    <React.Fragment>
+    <>
          <IconButton ref={anchorRef} onClick={handleToggle}><MoreVertOutlinedIcon/></IconButton>
       <Popper
         open={open}
         anchorEl={anchorRef.current}
         role={undefined}
         transition
-        disablePortal
+        style={{zIndex: 1500}}
       >
         {({ TransitionProps, placement }) => (
           <Grow
@@ -101,6 +101,6 @@ export default function MoreIcon(props) {
           </Grow>
         )}
       </Popper>
-    </React.Fragment>
+    </>
   );
 }

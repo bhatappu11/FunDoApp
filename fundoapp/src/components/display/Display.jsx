@@ -12,6 +12,7 @@ import {Button} from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
+import DialogActions from "@mui/material/DialogActions";
 import UserService from '../../services/UserService';
 import './Display.scss';
 
@@ -113,7 +114,7 @@ export default function Display(props) {
             <Dialog open={pop} onClose={()=>handleClose}>
             <Box sx={{display:'flex', flexDirection:'column' ,width: '100%', justifyContent:'space-between'}}>
                 <Paper sx={{padding:'5px 20px 5px 20px', borderRadius:'10px', border:'1px solid',backgroundColor: color }}>
-                <DialogContent>
+                <Box>
                     <InputBase
                         defaultValue={title}
                         sx={{flexGrow:'1'}}
@@ -129,11 +130,12 @@ export default function Display(props) {
                         sx={{flexGrow:1, padding: '20px 0'}}
                         onChange={(e)=> setContent(e.target.value)}
                     />
-                </DialogContent>
+                    </Box>
                     <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                         <IconButtons mode="update" setColor={setColor} setArchive={setArchive} setDelete={setDelete} handleClose={handleClose} displayAfterUpdate = {props.displayAfterUpdate} noteid={noteid}/>
                         <Button onClick={handleClose} size="small" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Close</Button>
                     </Box>
+                
                 </Paper>
                 </Box>
             </Dialog>           
