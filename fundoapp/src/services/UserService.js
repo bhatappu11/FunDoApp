@@ -32,6 +32,9 @@ class UserService {
     trashNotes(url,data,config){
         return axiosService.postMethod(`${baseurl}${url}`,data,config);
     }
+    searchUser(url,data,config){
+        return axiosService.postMethod(`${baseurl}${url}`,data,config);
+    }
 }
 
 export default UserService
