@@ -4,8 +4,6 @@ import Forgot from "./pages/forgot/Forgot"
 import Reset from "./pages/reset/Reset"
 import Dashboard from "./pages/dashboard/Dashboard"
 import './App.css';
-//import History from "./history/History"
-// import { Router, Route, Switch} from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -18,7 +16,7 @@ function App() {
             <Route exact path='/' component={SignIn}></Route>
             <Route exact path='/forgot' component={Forgot}></Route>
             <Route exact path='/reset-password/:id' component={Reset}></Route>
-            <Route exact path='/dashboard' component={Dashboard}></Route>
+            <Route path='/dashboard' component={Dashboard}></Route>
           </Switch>
           </Router>
         </div>
