@@ -54,6 +54,8 @@ export default class SignIn extends Component {
                 console.log(res);
                 console.log("Login successful");
                 localStorage.setItem('id',res.data.id);
+                localStorage.setItem('email',res.data.email);
+                localStorage.setItem('fullname',res.data.firstName+" "+res.data.lastName);
                 //History.push('/dashboard')
                 this.props.history.push("/dashboard");
             })
