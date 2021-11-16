@@ -12,6 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { useHistory } from 'react-router-dom';
 
 
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
@@ -24,6 +25,7 @@ import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import InputBase from "@mui/material/InputBase";
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+//create constant and store history
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -127,12 +129,25 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer() {
-  const [open, setOpen] = React.useState(false);
 
+export default function MiniDrawer(props) {
+  const [open, setOpen] = React.useState(false);
+  const history = useHistory();
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
+  const handleItem = (index) => {
+  
+    if(index==0){
+      history.push('/dashboard');
+    }
+    else if(index==3){
+      history.push('/dashboard/archive');
+    }
+    else if(index==4){
+      history.push('/dashboard/trash');
+    }
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -180,15 +195,15 @@ export default function MiniDrawer() {
             <ListItem button key={text}>
               <ListItemIcon>
               {index === 0 ? (
-                    <LightbulbOutlinedIcon />
+                    <LightbulbOutlinedIcon onClick={()=>{handleItem(index)}}/>
                     ) : index === 1 ? (
                     <NotificationsNoneOutlinedIcon />
                     ) : index === 2 ? (
                     <EditOutlinedIcon />
                     ) : index === 3 ? (
-                    <ArchiveOutlinedIcon />
+                    <ArchiveOutlinedIcon onClick={()=>{handleItem(index)}}/>
                     ) : (
-                    <DeleteOutlineOutlinedIcon />
+                    <DeleteOutlineOutlinedIcon onClick={()=>{handleItem(index)}}/>
                     )}
               </ListItemIcon>
               <ListItemText primary={text} />
