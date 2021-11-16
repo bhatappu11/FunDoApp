@@ -10,6 +10,7 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import MoreIcon from '../more/MoreIcon';
 import Palette from '../palette/Palette';
 import UserService from '../../services/UserService';
+import Collaborators from '../collaborators/Collaborators';
 
 const userService = new UserService();
 
@@ -48,7 +49,7 @@ export default function IconButtons(props) {
         <div>
             <Box sx={{display:'flex'}}>
             <IconButton><AddAlertOutlinedIcon/></IconButton>
-            <IconButton><PersonAddAltOutlinedIcon/></IconButton>
+            <IconButton><Collaborators /></IconButton>
             <IconButton>{props.mode=="create" ? <Palette mode="create" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={props.noteid}/> : <Palette mode="update" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={props.noteid} />}</IconButton>
             <IconButton><ImageOutlinedIcon/></IconButton>
             <IconButton><ArchiveOutlinedIcon onClick={handleArchive} /></IconButton>
