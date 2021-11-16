@@ -87,7 +87,7 @@ export default function Display(props) {
         <div>
             <Box sx={{marginLeft: '10%', marginTop: '5%', marginRight: '10%'}} >
                 <Grid container spacing={{ xs: 1, md: 3 }} columns={{ xs: 4, sm: 8, md: 10 }}>
-                    {props.data.filter(ele => ele.isArchived == false && ele.isDeleted == false).map((note)=>(
+                    {props.data.map((note)=>(
                         <Grid item xs={6} sm={3} md={2} >
                         <Item>
                             <div className="note">
