@@ -17,15 +17,13 @@ const userService = new UserService();
 export default function IconButtons(props) {
 
     const handleArchive = () => {
-        //props.setArchive(true);
         if(props.mode=="create"){
-            props.setArchive(true);
+            props.handleArchiveState();
             console.log("created archived notes");
-            props.setCallEffect(!props.callEffect);
         }
         if(props.mode == "update"){            
             let data = {
-                noteIdList: [props.noteid],
+                noteIdList: [props.note.id],
                 isArchived: true,
             };
             let config = {
@@ -44,16 +42,17 @@ export default function IconButtons(props) {
             });
         }
     };
+    console.log(props)
     
     return (
         <div>
             <Box sx={{display:'flex'}}>
             <IconButton><AddAlertOutlinedIcon/></IconButton>
-            <IconButton><Collaborators /></IconButton>
-            <IconButton>{props.mode=="create" ? <Palette mode="create" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={props.noteid}/> : <Palette mode="update" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} noteid={props.noteid} />}</IconButton>
+            <IconButton>{props.mode=="create" ? <Collaborators mode="create" note={props.note} displayAfterUpdate = {props.displayAfterUpdate} handleAddCollaborator={props.handleAddCollaborator}/> : <Collaborators mode="update" note={props.note} displayAfterUpdate = {props.displayAfterUpdate} />} </IconButton>
+            <IconButton>{props.mode=="create" ? <Palette mode="create" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} note={props.note}/> : <Palette mode="update" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} note={props.note} />}</IconButton>
             <IconButton><ImageOutlinedIcon/></IconButton>
             <IconButton><ArchiveOutlinedIcon onClick={handleArchive} /></IconButton>
-            <IconButton>{props.mode=="create" ? <MoreIcon mode="create" setDelete={props.setDelete} setCallEffect={props.setCallEffect} displayAfterUpdate = {props.displayAfterUpdate} noteid={props.noteid}/> : <MoreIcon mode="update" handleClose={props.handleClose} setDelete={props.setDelete} setCallEffect={props.setCallEffect} displayAfterUpdate = {props.displayAfterUpdate} noteid={props.noteid}/>}</IconButton>
+            <MoreIcon mode="update" handleClose={props.handleClose} setDelete={props.setDelete} displayAfterUpdate = {props.displayAfterUpdate} note={props.note}/>
             </Box> 
             
         </div>
