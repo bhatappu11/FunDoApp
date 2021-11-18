@@ -35,15 +35,10 @@ export default function MoreIcon(props) {
   };
   const handleMenuItemClick = (event, index) => {
     if(index==0){
-      
-      if(props.mode=="create"){
-        props.setDelete(true);
-        props.setCallEffect(true);
-      }
       if(props.mode == "update"){  
         props.setDelete(true);          
         let data = {
-            noteIdList: [props.noteid],
+            noteIdList: [props.note.id],
             isDeleted: true,
         };
         let config = {
@@ -54,15 +49,16 @@ export default function MoreIcon(props) {
         userService.trashNotes("/notes/trashNotes",data,config)
         .then(()=>{
             console.log("deleted successfully");
-            props.handleClose();
             props.displayAfterUpdate();
+            props.handleClose();
+            setOpen(false);
         })
         .catch((err)=>{
             console.log(err);
         });
       }
     }
-    setOpen(false);
+    
   };
 
   return (
@@ -89,7 +85,6 @@ export default function MoreIcon(props) {
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
-                      //selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
                     >
                       {option}
