@@ -5,6 +5,7 @@ import Reset from "./pages/reset/Reset"
 import Dashboard from "./pages/dashboard/Dashboard"
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {ProtectedRoute} from './ProtectedRoute'
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
             <Route exact path='/signup' component={SignUp}></Route>
             <Route exact path='/' component={SignIn}></Route>
             <Route exact path='/forgot' component={Forgot}></Route>
-            <Route exact path='/reset-password/:id' component={Reset}></Route>
-            <Route path='/dashboard' component={Dashboard}></Route>
+            <ProtectedRoute exact path='/reset-password/:id' component={Reset}></ProtectedRoute>
+            <ProtectedRoute path='/dashboard' component={Dashboard}></ProtectedRoute>
           </Switch>
           </Router>
         </div>
