@@ -111,7 +111,7 @@ export default function Collaborators(props) {
             <DialogContentText>
                 <Box style={{display: 'flex',flexDirection: 'column',marginBottom: '10px'}}>
                     <Box display={'flex'} marginBottom={'10px'}>
-                        <span style={{border: '1px solid',borderRadius: '50%',padding: '16px',marginRight: '10px',fontWeight: 'bold',backgroundColor: '#B28745'}}>{fullName.charAt(0)}</span>
+                        <Avatar style={{marginRight: '10px',fontWeight: 'bold',backgroundColor: '#B28745',color: '#f1f1f1'}}>{fullName.charAt(0)}</Avatar>
                         <Box display='flex' flexDirection='column'>
                             <span style={{fontWeight: 'bold'}}>{fullName}<i>(owner)</i></span>
                             <span>{email}</span>
