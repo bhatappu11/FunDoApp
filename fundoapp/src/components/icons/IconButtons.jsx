@@ -42,13 +42,13 @@ export default function IconButtons(props) {
             });
         }
     };
-    console.log(props)
+    //console.log(props)
     
     return (
         <div>
             <Box sx={{display:'flex'}}>
             <IconButton><AddAlertOutlinedIcon/></IconButton>
-            <IconButton>{props.mode=="create" ? <Collaborators mode="create" note={props.note} displayAfterUpdate = {props.displayAfterUpdate} handleAddCollaborator={props.handleAddCollaborator}/> : <Collaborators mode="update" note={props.note} displayAfterUpdate = {props.displayAfterUpdate} />} </IconButton>
+            <IconButton>{props.mode=="create" ? <Collaborators mode="create" note={props.note} displayAfterUpdate = {props.displayAfterUpdate} handleAddCollaborator={props.handleAddCollaborator}/> : <Collaborators mode="update" handleClose={props.handleClose} note={props.note} displayAfterUpdate = {props.displayAfterUpdate} />} </IconButton>
             <IconButton>{props.mode=="create" ? <Palette mode="create" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} note={props.note}/> : <Palette mode="update" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} note={props.note} />}</IconButton>
             <IconButton><ImageOutlinedIcon/></IconButton>
             <IconButton><ArchiveOutlinedIcon onClick={handleArchive} /></IconButton>
