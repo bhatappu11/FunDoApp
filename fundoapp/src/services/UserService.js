@@ -35,6 +35,9 @@ class UserService {
     searchUser(url,data,config){
         return axiosService.postMethod(`${baseurl}${url}`,data,config);
     }
+    addCollaborator(url,data,config){
+        return axiosService.postMethod(`${baseurl}${url}`,data,config);
+    }
 }
 
 export default UserService
