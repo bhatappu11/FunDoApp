@@ -11,19 +11,21 @@ import Trash from '../trash/Trash'
 import Notes from '../notes/Notes'
 
 const userService = new UserService();
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+  const theme = createTheme({
+    palette:{
+        mode:'dark',
+    }
+  });
 
 export default function Dashboard() {
-    const theme = createTheme({
-        palette:{
-            mode:'dark',
-        }
-      });
+   
 
-      const Item = styled(Paper)(({ theme }) => ({
-        ...theme.typography.body2,
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }));
+   
     return (
         <div>
             <ThemeProvider theme={theme}>
