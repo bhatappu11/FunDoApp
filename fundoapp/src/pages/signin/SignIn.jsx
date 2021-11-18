@@ -3,6 +3,7 @@ import './SignIn.scss';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import UserService from '../../services/UserService';
+import auth from '../../auth';
 //import History from '../../history/History';
 const userService = new UserService();
 
@@ -57,7 +58,10 @@ export default class SignIn extends Component {
                 localStorage.setItem('email',res.data.email);
                 localStorage.setItem('fullname',res.data.firstName+" "+res.data.lastName);
                 //History.push('/dashboard')
-                this.props.history.push("/dashboard");
+                auth.login(()=>{
+                    this.props.history.push("/dashboard");
+                })
+                
             })
             .catch((err)=>{
                 console.log(err);
