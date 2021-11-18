@@ -13,6 +13,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useHistory } from 'react-router-dom';
+import Popover from '@mui/material/Popover';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 
 
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
@@ -25,18 +28,34 @@ import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import InputBase from "@mui/material/InputBase";
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import auth from '../../auth';
 //create constant and store history
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "#757575",
-    marginRight: theme.spacing(90),
+    marginRight: theme.spacing(100),
     marginLeft: 20,
-    [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(10),
+    minWidth: "10%",
+    overflowX: 'hidden',
+    [theme.breakpoints.down("sm")]: {
+        marginLeft: theme.spacing(50),
         width: "auto"
     }
+    // ,
+    // [theme.breakpoints.up("md")]: {
+    //   marginLeft: theme.spacing(10),
+    //   width: "20%"
+    // },
+    // [theme.breakpoints.up("lg")]: {
+    //   marginLeft: theme.spacing(10),
+    //   width: "50%"
+    // },
+    // [theme.breakpoints.up("xl")]: {
+    //   marginLeft: theme.spacing(10),
+    //   width: "20%"
+    // }
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -133,6 +152,19 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer(props) {
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleLogoutPopover = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openPopover = Boolean(anchorEl);
+  
+
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
@@ -149,6 +181,13 @@ export default function MiniDrawer(props) {
     }
   }
 
+  const handleLogout = () => {
+    localStorage.clear();
+    auth.logout(()=>{
+      history.push("/");
+    })
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -163,7 +202,7 @@ export default function MiniDrawer(props) {
             <MenuIcon />
           </IconButton>
           <img src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png"/>
-          <Typography variant="h5" noWrap component="div" fontWeight="bolder">
+          <Typography variant="h5" component="div" fontWeight="bolder" >
             Keep
           </Typography>
           <Search>
@@ -174,17 +213,21 @@ export default function MiniDrawer(props) {
                     placeholder="Search"
                     inputProps={{ "aria-label": "search" }}
                 />
-        </Search>
-        <AppsOutlinedIcon fontSize="large"
-        style={{
-            margin: "10px",
-            cursor: "pointer"
-        }} />
-        <AccountCircleOutlinedIcon fontSize="large" 
-        style={{
-            margin: "10px",
-            cursor: "pointer",
-        }} />
+          </Search>
+                <AppsOutlinedIcon fontSize="large"
+                style={{
+                    marginLeft: 10,
+                    marginRight: 5,
+                    // cursor: "pointer",
+                    // zIndex: 3000,
+                }} />
+                <IconButton><AccountCircleOutlinedIcon onClick={handleLogoutPopover} fontSize="large" 
+                style={{
+                    marginLeft: 10,
+                    marginRight: 5,
+                    // cursor: "pointer",
+                    // zIndex: 3000,
+                }} /></IconButton>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -215,6 +258,30 @@ export default function MiniDrawer(props) {
         <DrawerHeader />
         
       </Box>
+      <Popover
+        open={openPopover}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <Typography sx={{display: 'flex',flexDirection:'column', paddingLeft:'80px',paddingRight: '80px',paddingTop: '20px', textAlign: 'center' }}>
+        <Avatar sx={{width: 95,height: 95,fontWeight: 'bold',backgroundColor: '#B28745',color: '#f1f1f1',marginBottom: '50px',marginLeft: '15px'}}>{localStorage.getItem("fullname").charAt(0)}</Avatar>
+        <span style={{fontWeight: 'bold'}}>{localStorage.getItem("fullname")}</span>
+        <span style={{marginBottom: '20px'}}>{localStorage.getItem("email")}</span>
+        <Button onClick={handleLogout} variant="outlined" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder',borderColor: '#f1f1f1',borderRadius: 25, border: '1px solid',marginBottom:'30px',
+        ':hover':{
+          borderColor:"#f1f1f1",
+        },
+      }}>Logout</Button>
+        </Typography>
+      </Popover>
     </Box>
   );
 }
