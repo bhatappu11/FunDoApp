@@ -15,6 +15,7 @@ import Fade from '@mui/material/Fade';
 import Paper from '@mui/material/Paper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import Avatar from '@mui/material/Avatar';
 
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 
@@ -120,7 +121,7 @@ export default function Collaborators(props) {
                         { props.note ?
                         props.note.collaborators.map((cred)=>(
                             <Box display={'flex'} marginBottom={'10px'}>
-                                <span style={{border: '1px solid',borderRadius: '50%',padding: '15px',marginRight: '10px',fontWeight: 'bolder',backgroundColor: '#B28745'}}>{cred.firstName.charAt(0)}</span>
+                                <Avatar sx={{marginRight: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#B28745',color: '#f1f1f1' }}>{cred.firstName.charAt(0)}</Avatar>
                                 <Box style={{display: 'flex', flexDirection: 'column'}}>
                                     <span style={{fontWeight: 'bold'}}>{cred.firstName} {cred.lastName}</span>
                                     <span>{cred.email}</span>
@@ -129,7 +130,7 @@ export default function Collaborators(props) {
                         ))
                         : collabUser.map((cred)=>(
                             <Box display={'flex'} marginBottom={'10px'}>
-                                <span style={{border: '1px solid',borderRadius: '50%',padding: '15px',marginRight: '10px',fontWeight: 'bolder',backgroundColor: '#B28745'}}>{cred.firstName.charAt(0)}</span>
+                                <Avatar sx={{marginRight: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#B28745',color: '#f1f1f1' }}>{cred.firstName.charAt(0)}</Avatar>
                                 <Box style={{display: 'flex', flexDirection: 'column'}}>
                                     <span style={{fontWeight: 'bold'}}>{cred.firstName} {cred.lastName}</span>
                                     <span>{cred.email}</span>

@@ -14,6 +14,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from "@mui/material/DialogActions";
 import UserService from '../../services/UserService';
+import Avatar from '@mui/material/Avatar';
 import './Display.scss';
 
 const userService = new UserService();
@@ -108,7 +109,7 @@ export default function Display(props) {
                              {  note ?
                              note.collaborators.map((cred)=>(
                                 <Box display={'flex'}>
-                                    <span style={{border: '1px solid',borderRadius: '50%',padding: '12px',marginLeft: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#B28745' }}>{cred.firstName.charAt(0)}</span>
+                                    <Avatar sx={{marginLeft: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#B28745',color: '#f1f1f1' }}>{cred.firstName.charAt(0)}</Avatar>
                                 </Box>
                                 ))
                                 : ''                        
@@ -151,7 +152,7 @@ export default function Display(props) {
                              {  noteobj.collaborators ?
                              noteobj.collaborators.map((cred)=>(
                                 <Box display={'flex'}>
-                                    <span style={{border: '1px solid',borderRadius: '50%',padding: '12px',marginLeft: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#B28745' }}>{cred.firstName.charAt(0)}</span>
+                                    <Avatar sx={{marginLeft: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#B28745', color: '#f1f1f1'}}>{cred.firstName.charAt(0)}</Avatar>
                                 </Box>
                                 ))
                                 : ''                        
