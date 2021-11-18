@@ -21,21 +21,27 @@ export default function TakeNotes(props) {
     const [content,setContent] = React.useState("");
     const [color, setColor] = React.useState("#121212");
     const [archive, setArchive] = React.useState(false);
-    // const [deleted, setDelete] = React.useState(false);
-    const [callEffect, setCallEffect]  = React.useState(false);
+    const [collaborators, setCollaborators] = React.useState([]);
+    
 
     const open = () => {
         setChecked(true);
     }
+    const handleArchiveState = () =>{
+        setArchive(true);
+       
+    }
+    const handleAddCollaborator = (collab) => {
+        setCollaborators([...collaborators,collab]);
+        console.log(collaborators);
+    }
     const addnotes = () => {
-        close();
-        let data = {
-            title: title,
-            description: content,
-            color: color,
-            isArchived: archive,
-            //isDeleted: deleted,
-        };
+        var data = new FormData();
+        data.append('title',title);
+        data.append('description',content);
+        data.append('color',color);
+        data.append('isArchived',archive);
+        data.append('collaberators',JSON.stringify(collaborators));
         let config = {
             headers: {
                 'Authorization': localStorage.getItem("id"),
@@ -45,25 +51,28 @@ export default function TakeNotes(props) {
         .then(()=>{
             console.log("Notes Added");
             props.displayAfterAdd();
+            setTitle("");
+            setContent("");
+            setColor("#121212");
+            setArchive(false);
+            setCollaborators([]);
+            close();
         })
         .catch((err)=>{
             console.log(err);
         });
         
-        setTitle("");
-        setContent("");
-        setColor("#121212");
-        setArchive(false);
-        // setDelete(false);
-        //setCallEffect(false);
     }
     const close = () => {
         setChecked(false);
             
     }
-     React.useEffect(()=>{
-         addnotes();
-    },[callEffect]);
+    React.useEffect(() => {
+        if(archive){
+        addnotes();
+        }
+     }, [archive]);
+    
     const takenotes = (
         <Box sx={{display:'flex'}}>
             <InputBase
@@ -102,8 +111,18 @@ export default function TakeNotes(props) {
                     </Box>
                     <Box >
                     <Collapse in={checked}>
+                        <Box display='flex' marginBottom={'10px'}>
+                             {  collaborators ?
+                             collaborators.map((cred)=>(
+                                <Box display={'flex'}>
+                                    <span style={{border: '1px solid',borderRadius: '50%',padding: '12px',marginLeft: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#e3af12' }}>{cred.firstName.charAt(0)}</span>
+                                </Box>
+                                ))
+                                : ''                        
+                            }
+                        </Box>
                         <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                        <IconButtons mode="create" setColor={setColor} addNotes={addnotes} /*setDelete={setDelete}*/ setCallEffect={setCallEffect} callEffect={callEffect} setArchive={setArchive}/>
+                        <IconButtons mode="create" setColor={setColor} addNotes={addnotes} handleAddCollaborator={handleAddCollaborator}  handleArchiveState={handleArchiveState} /*callEffect={callEffect} setArchive={setArchive}*//>
                         <Button onClick={addnotes} size="small" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Close</Button>
                         </Box>
                     </Collapse>
