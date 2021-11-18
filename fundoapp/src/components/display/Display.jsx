@@ -17,6 +17,16 @@ import UserService from '../../services/UserService';
 import './Display.scss';
 
 const userService = new UserService();
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  })); 
+  const theme = createTheme({
+    palette:{
+        mode:'dark',
+    }
+  });
 
 export default function Display(props) {
     const [checked, setChecked] = React.useState(false);
@@ -27,7 +37,9 @@ export default function Display(props) {
     const [color, setColor] = React.useState("#121212");
     const [archive, setArchive] = React.useState(false);
     const [deleted, setDelete] = React.useState(false);
+    const [noteobj, setNote] = React.useState({});
     const handleClickOpen = (note) => {
+        setNote(note);
         setOpen(true);
         setTitle(note.title);
         setId(note.id);
@@ -51,11 +63,12 @@ export default function Display(props) {
         .then(()=>{
             console.log("Notes updated successfully");
             props.displayAfterUpdate();
+            setOpen(false);
         })
         .catch((err)=>{
             console.log(err);
         });
-        setOpen(false);
+        
     }
     const handleClose = () => {
         updateNote(); 
@@ -70,19 +83,12 @@ export default function Display(props) {
     const pinbutton = (         
             <IconButton><PushPinOutlinedIcon/></IconButton>
     ); 
-    const theme = createTheme({
-        palette:{
-            mode:'dark',
-        }
-      });
+  
 //       React.useEffect(()=>{
 //         handleClose();
 //    },[archive]);
-    const Item = styled(Paper)(({ theme }) => ({
-        ...theme.typography.body2,
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      })); 
+   
+      console.log(noteobj)
     return (
         <div>
             <Box sx={{marginLeft: '10%', marginTop: '5%', marginRight: '10%'}} >
@@ -98,9 +104,19 @@ export default function Display(props) {
                                  <div className="notes-title">{note.title}<div className="pin-icons">{pinbutton}</div></div>
                                  <div className="notes-content">{note.description}</div>
                             </Box>
+                            <Box display='flex' marginBottom={'10px'}>
+                             {  note ?
+                             note.collaborators.map((cred)=>(
+                                <Box display={'flex'}>
+                                    <span style={{border: '1px solid',borderRadius: '50%',padding: '12px',marginLeft: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#B28745' }}>{cred.firstName.charAt(0)}</span>
+                                </Box>
+                                ))
+                                : ''                        
+                            }
+                            </Box>
                             <div className="icons">
                             <Box>
-                                <IconButtons mode="update" setColor={setColor} setDelete={setDelete} handleClose={handleClose} setArchive={setArchive} displayAfterUpdate = {props.displayAfterUpdate} noteid={note.id}/>
+                                <IconButtons note={note} mode="update" setColor={setColor} setDelete={setDelete} handleClose={handleClose} setArchive={setArchive} displayAfterUpdate = {props.displayAfterUpdate}/>
                             </Box>
                             </div>
                             </Paper>
@@ -131,8 +147,18 @@ export default function Display(props) {
                         onChange={(e)=> setContent(e.target.value)}
                     />
                     </Box>
+                    <Box display='flex' marginBottom={'10px'}>
+                             {  noteobj.collaborators ?
+                             noteobj.collaborators.map((cred)=>(
+                                <Box display={'flex'}>
+                                    <span style={{border: '1px solid',borderRadius: '50%',padding: '12px',marginLeft: '10px',fontWeight: 'bold', cursor: 'pointer',backgroundColor: '#B28745' }}>{cred.firstName.charAt(0)}</span>
+                                </Box>
+                                ))
+                                : ''                        
+                            }
+                            </Box>
                     <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                        <IconButtons mode="update" setColor={setColor} setArchive={setArchive} setDelete={setDelete} handleClose={handleClose} displayAfterUpdate = {props.displayAfterUpdate} noteid={noteid}/>
+                        <IconButtons mode="update" setColor={setColor} setArchive={setArchive} setDelete={setDelete} handleClose={handleClose} displayAfterUpdate = {props.displayAfterUpdate} note={noteobj}/>
                         <Button onClick={handleClose} size="small" sx={{color: 'white',textTransform: 'none', fontWeight: 'bolder', fontSize: '0.875rem'}}>Close</Button>
                     </Box>
                 
