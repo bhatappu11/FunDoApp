@@ -61,7 +61,9 @@ export default function Collaborators(props) {
             .then((res)=>{
                 console.log(res.data.data);
                 console.log("retrieved users successfully");  
-                props.displayAfterUpdate();          
+                props.displayAfterUpdate(); 
+                props.handleClose(); 
+
             })
             .catch((err)=>{
                 console.log(err);
