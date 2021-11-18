@@ -24,7 +24,7 @@ export default function Palette(props) {
     props.setColor(newColor);
     if (props.mode == "update") {
       let data = {
-        noteIdList: [props.noteid],
+        noteIdList: [props.note.id],
         color : newColor,
     };
     let config = {
