@@ -20,7 +20,7 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 const userService = new UserService();
 
-export default function Collaborators() {
+export default function Collaborators(props) {
     const [open, setOpen] = React.useState(false);
     const [searchedUser, setSearchedUser] = React.useState([]);
     const [collabUser, setCollabUser] = React.useState([]);
@@ -46,9 +46,32 @@ export default function Collaborators() {
         setPopperOpen(false);
         setSearchedUser([]);
       };
+    const handleCollaborator = (data) => {
+        if(props.mode == "create") {
+            props.handleAddCollaborator(data);
+        }
+        if(props.mode=="update"){
+            let config = {
+                headers: {
+                    'Authorization': localStorage.getItem("id"),
+                }
+            }
+            console.log(props.note)
+            userService.addCollaborator(`/notes/${props.note.id}/AddCollaboratorsNotes`,data,config)
+            .then((res)=>{
+                console.log(res.data.data);
+                console.log("retrieved users successfully");  
+                props.displayAfterUpdate();          
+            })
+            .catch((err)=>{
+                console.log(err);
+            });
+        }
+    }
     const handleMenuItemClick = (event,index) => {
         console.log(collabUser);
         setCollabUser([...collabUser,searchedUser[index]])
+        handleCollaborator(searchedUser[index]);
         console.log(collabUser);
     }
     const handleInput = (val) => {
@@ -73,6 +96,7 @@ export default function Collaborators() {
         });
     }
     }
+    // console.log(props.note);
     return (
         <div>
         <IconButton onClick={handleClickOpen}>
@@ -84,22 +108,34 @@ export default function Collaborators() {
             <DialogContentText>
                 <Box style={{display: 'flex',flexDirection: 'column',marginBottom: '10px'}}>
                     <Box display={'flex'} marginBottom={'10px'}>
-                        <span style={{border: '1px solid',borderRadius: '50%',padding: '16px',marginRight: '10px',fontWeight: 'bold'}}>{fullName.charAt(0)}</span>
+                        <span style={{border: '1px solid',borderRadius: '50%',padding: '16px',marginRight: '10px',fontWeight: 'bold',backgroundColor: '#B28745'}}>{fullName.charAt(0)}</span>
                         <Box display='flex' flexDirection='column'>
                             <span style={{fontWeight: 'bold'}}>{fullName}<i>(owner)</i></span>
                             <span>{email}</span>
                         </Box>
                     </Box>
                     <Box display='flex' flexDirection='column' marginBottom={'10px'}>
-                        {collabUser.map((cred)=>(
+                        { props.note ?
+                        props.note.collaborators.map((cred)=>(
                             <Box display={'flex'} marginBottom={'10px'}>
-                                <span style={{border: '1px solid',borderRadius: '50%',padding: '15px',marginRight: '10px',fontWeight: 'bold'}}>{cred.firstName.charAt(0)}</span>
+                                <span style={{border: '1px solid',borderRadius: '50%',padding: '15px',marginRight: '10px',fontWeight: 'bolder',backgroundColor: '#B28745'}}>{cred.firstName.charAt(0)}</span>
                                 <Box style={{display: 'flex', flexDirection: 'column'}}>
                                     <span style={{fontWeight: 'bold'}}>{cred.firstName} {cred.lastName}</span>
                                     <span>{cred.email}</span>
                                 </Box>
                             </Box>
-                        ))}
+                        ))
+                        : collabUser.map((cred)=>(
+                            <Box display={'flex'} marginBottom={'10px'}>
+                                <span style={{border: '1px solid',borderRadius: '50%',padding: '15px',marginRight: '10px',fontWeight: 'bolder',backgroundColor: '#B28745'}}>{cred.firstName.charAt(0)}</span>
+                                <Box style={{display: 'flex', flexDirection: 'column'}}>
+                                    <span style={{fontWeight: 'bold'}}>{cred.firstName} {cred.lastName}</span>
+                                    <span>{cred.email}</span>
+                                </Box>
+                            </Box>
+                        ))
+                        
+                        }
                     </Box>
                 </Box>
             </DialogContentText>
