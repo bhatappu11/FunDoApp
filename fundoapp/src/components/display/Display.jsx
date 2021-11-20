@@ -64,7 +64,6 @@ export default function Display(props) {
         .then(()=>{
             console.log("Notes updated successfully");
             props.displayAfterUpdate();
-            setOpen(false);
         })
         .catch((err)=>{
             console.log(err);
@@ -73,6 +72,7 @@ export default function Display(props) {
     }
     const handleClose = () => {
         updateNote(); 
+        setOpen(false);
     };
     
     const open = () => {
@@ -94,7 +94,8 @@ export default function Display(props) {
         <div>
             <Box sx={{marginLeft: '10%', marginTop: '5%', marginRight: '10%'}} >
                 <Grid container spacing={{ xs: 1, md: 3 }} columns={{ xs: 4, sm: 8, md: 10 }}>
-                    {props.data.map((note)=>(
+                    {props.data.length != 0 ?
+                    props.data.map((note)=>(
                         <Grid item xs={6} sm={3} md={2} >
                         <Item>
                             <div className="note">
@@ -116,7 +117,7 @@ export default function Display(props) {
                             }
                             </Box>
                             <div className="icons">
-                            <Box>
+                            <Box display='flex' justifyContent='space-between'>
                                 <IconButtons note={note} mode="update" setColor={setColor} setDelete={setDelete} handleClose={handleClose} setArchive={setArchive} displayAfterUpdate = {props.displayAfterUpdate}/>
                             </Box>
                             </div>
@@ -125,7 +126,7 @@ export default function Display(props) {
                         </div>
                         </Item>
                         </Grid>
-                    ))}
+                    )): 'Notes not found'}
                 </Grid>
             </Box> 
             <Dialog open={pop} onClose={()=>handleClose}>
