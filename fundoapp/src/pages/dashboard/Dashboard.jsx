@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Archives from '../archives/Archives'
 import Trash from '../trash/Trash'
 import Notes from '../notes/Notes'
+import Search from '../search/Search';
+import { Context } from '../../context/Context';
 
 const userService = new UserService();
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,19 +24,21 @@ const Item = styled(Paper)(({ theme }) => ({
     }
   });
 
-export default function Dashboard() {
-   
-
-   
+export default function Dashboard() {  
+    const [searchWord, setSearchWord] = useState("");
+    
     return (
         <div>
             <ThemeProvider theme={theme}>
-            <Header />
-            <Switch>
-                <Route exact path="/dashboard" component={Notes}/>
-                <Route exact  path="/dashboard/archive" component={Archives}/>
-                <Route exact path="/dashboard/trash" component={Trash}/>
-            </Switch>
+            <Context.Provider value={[searchWord, setSearchWord]}>
+                <Header />
+                        <Switch>
+                            <Route exact path="/dashboard" component={Notes}/>
+                            <Route exact  path="/dashboard/archive" component={Archives}/>
+                            <Route exact path="/dashboard/trash" component={Trash}/>
+                            <Route exact path="/dashboard/search" component={Search}/>
+                        </Switch>
+            </Context.Provider>
             </ThemeProvider>
         </div>
     )
