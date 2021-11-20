@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -17,7 +18,7 @@ import Popover from '@mui/material/Popover';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
-
+import { Context } from '../../context/Context';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -153,6 +154,7 @@ export default function MiniDrawer(props) {
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [searchWord, setSearchWord] = useContext(Context);
 
   const handleLogoutPopover = (event) => {
     setAnchorEl(event.currentTarget);
@@ -205,13 +207,14 @@ export default function MiniDrawer(props) {
           <Typography variant="h5" component="div" fontWeight="bolder" >
             Keep
           </Typography>
-          <Search>
+          <Search onClick={()=>history.push("/dashboard/search")}>
                 <SearchIconWrapper>
                 <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
                     placeholder="Search"
                     inputProps={{ "aria-label": "search" }}
+                    onChange={(e)=> setSearchWord(e.target.value)}
                 />
           </Search>
                 <AppsOutlinedIcon fontSize="large"
