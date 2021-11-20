@@ -1,10 +1,16 @@
 class Auth {
     constructor() {
-        this.authenticated = false
+        if(localStorage.getItem("id")){
+            this.authenticated = true
+        }
+        else
+            this.authenticated = false
     }
     login(cb){
-        this.authenticated = true
-        cb()
+        if(localStorage.getItem("id")){
+            this.authenticated = true
+            cb()
+        }
     }
     logout(cb){
         this.authenticated = false
