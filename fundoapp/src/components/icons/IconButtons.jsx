@@ -46,7 +46,7 @@ export default function IconButtons(props) {
     
     return (
         <div>
-            <Box sx={{display:'flex'}}>
+            <Box sx={{display:'flex', justifyContent: 'space-between'}}>
             <IconButton><AddAlertOutlinedIcon/></IconButton>
             <IconButton>{props.mode=="create" ? <Collaborators mode="create" note={props.note} displayAfterUpdate = {props.displayAfterUpdate} handleAddCollaborator={props.handleAddCollaborator}/> : <Collaborators mode="update" handleClose={props.handleClose} note={props.note} displayAfterUpdate = {props.displayAfterUpdate} />} </IconButton>
             <IconButton>{props.mode=="create" ? <Palette mode="create" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} note={props.note}/> : <Palette mode="update" setColor={props.setColor} displayAfterUpdate = {props.displayAfterUpdate} note={props.note} />}</IconButton>

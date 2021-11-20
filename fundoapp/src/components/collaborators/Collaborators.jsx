@@ -61,9 +61,10 @@ export default function Collaborators(props) {
             userService.addCollaborator(`/notes/${props.note.id}/AddCollaboratorsNotes`,data,config)
             .then((res)=>{
                 console.log(res.data.data);
-                console.log("retrieved users successfully");  
+                console.log("retrieved users successfully"); 
+                props.handleClose();  
                 props.displayAfterUpdate(); 
-                props.handleClose(); 
+                
 
             })
             .catch((err)=>{
